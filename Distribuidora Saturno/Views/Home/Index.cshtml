@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Dominio.Producto>
+@{ var arrayProductos = Model.ToArray(); }
+
+@{
+    ViewBag.Title = "Página Principal";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{ int cantidadDeProductosQueFaltanMostrar = Model.Count(); }
+@{ int indiceProductoActual = 0; }
+<table>
+    @while (cantidadDeProductosQueFaltanMostrar > 0)
+    {
+        <tr>
+            @for (int i = 0; i < 4 && cantidadDeProductosQueFaltanMostrar != 0; i++)
+            {
+                var itemActual = arrayProductos[indiceProductoActual];
+                <td class="col-md-3">
+                    <hr />
+                    <h4>@Html.DisplayFor(modelItem => itemActual.Nombre)</h4>
+                    $u @Html.DisplayFor(modelItem => itemActual.Precio) <br />
+                    <img src=@itemActual.URLImagen alt="Imagen no encontrada, Producto: @itemActual.Nombre" /> <br />
+                    @Html.DisplayFor(modelItem => itemActual.Descripcion)
+                </td>
+                cantidadDeProductosQueFaltanMostrar--;
+                indiceProductoActual++;
+            }
+        </tr>
+    }
+</table>
